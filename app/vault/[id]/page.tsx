@@ -1,6 +1,7 @@
 import ChatAgent from "@/components/ChatAgent";
-
+import VaultDetailsTabs from "@/components/VaultDetailsTabs";
 import { createClient } from '@supabase/supabase-js'
+import FundAdminTable from "@/components/FundAdminTable";
 
 // 1. Keep the connection at the top
 const supabase = createClient(
@@ -17,6 +18,8 @@ export default async function VaultDetails({ params }: { params: Promise<{ id: s
     supabase.from('vault_performance').select('*').eq('vault_id', id).order('date', { ascending: false })
   ]);
 
+
+
   const vault = vaultResponse.data;
   const performance = performanceResponse.data;
 
@@ -31,14 +34,14 @@ export default async function VaultDetails({ params }: { params: Promise<{ id: s
 
 
 
-    // --- UPDATED TRANSFORMATION LOGIC ---
-    const matrix: Record<string, Record<string, number>> = {};
-    
-    performance?.forEach((row) => {
+  // --- UPDATED TRANSFORMATION LOGIC ---
+  const matrix: Record<string, Record<string, number>> = {};
+
+  performance?.forEach((row) => {
     // We split the string "2025-01-31" manually to avoid timezone shifts
-    const [yearStr, monthStr] = row.date.split('-'); 
+    const [yearStr, monthStr] = row.date.split('-');
     const year = yearStr;
-    
+
     // Convert "01" to "Jan", "02" to "Feb", etc.
     const monthIndex = parseInt(monthStr, 10) - 1;
     const monthsArr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -46,10 +49,10 @@ export default async function VaultDetails({ params }: { params: Promise<{ id: s
 
     if (!matrix[year]) matrix[year] = {};
     matrix[year][monthName] = Number(row.monthly_return);
-    });
+  });
 
-    const years = Object.keys(matrix).sort((a, b) => b.localeCompare(a));
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const years = Object.keys(matrix).sort((a, b) => b.localeCompare(a));
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 
 
@@ -59,15 +62,15 @@ export default async function VaultDetails({ params }: { params: Promise<{ id: s
     <main className="min-h-screen bg-[#050505] text-white p-8 md:p-16">
       {/* This wrapper creates the Two-Column Layout */}
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-12">
-        
+
         {/* LEFT COLUMN: Your Original UI */}
         <div className="flex-1">
-          
+
           {/* Navigation */}
           <nav className="mb-12 font-mono text-xs text-slate-500 uppercase tracking-widest">
-             <a href="/" className="hover:text-emerald-400 transition-colors">← Back to Dashboard</a>
+            <a href="/" className="hover:text-emerald-400 transition-colors">← Back to Dashboard</a>
           </nav>
-  
+
           {/* Fund Header */}
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12">
             <div>
@@ -81,7 +84,7 @@ export default async function VaultDetails({ params }: { params: Promise<{ id: s
               Invest Now
             </button>
           </div>
-  
+
           {/* Top Stats Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
             <div className="bg-[#111] p-8 rounded-3xl border border-slate-800">
@@ -97,13 +100,31 @@ export default async function VaultDetails({ params }: { params: Promise<{ id: s
               <p className="text-3xl font-mono font-bold text-blue-400 uppercase text-sm">Active</p>
             </div>
           </div>
-  
+
+
+          {/* Description Section */}
+          <section className="mb-12">
+            <h2 className="text-2xl font-bold mb-6 flex items-center gap-3">
+              Project Overview
+            </h2>
+            <div className="bg-[#111] border border-slate-800 p-8 rounded-3xl">
+              {/* whitespace-pre-wrap is the key for mobile readability and preserving line breaks */}
+              <div className="text-slate-300 leading-relaxed whitespace-pre-wrap font-sans">
+                {vault.description || "No description provided for this vault yet."}
+              </div>
+            </div>
+          </section>
+
+          {/* Tabs */}
+          <VaultDetailsTabs vault={vault} />
+
+
           {/* Monthly Performance Table */}
           <section className="mb-20">
             <h2 className="text-2xl font-bold mb-8 flex items-center gap-3">
               Historical Returns <span className="text-xs font-mono text-slate-500 bg-slate-900 px-2 py-1 rounded">%</span>
             </h2>
-            
+
             <div className="bg-[#0a0a0a] rounded-3xl border border-slate-800 p-6 overflow-x-auto">
               <table className="w-full border-collapse">
                 <thead>
@@ -115,21 +136,21 @@ export default async function VaultDetails({ params }: { params: Promise<{ id: s
                     <th className="p-4 text-center border-b border-slate-800 font-bold text-white">Annual</th>
                   </tr>
                 </thead>
-  
+
                 <tbody className="font-mono text-sm">
                   {years.map(year => {
                     const yearlyValues = Object.values(matrix[year] || {});
                     const annualTotal = yearlyValues.reduce((acc, curr) => acc + (Number(curr) || 0), 0);
-  
+
                     return (
                       <tr key={year} className="border-b border-slate-800/50 last:border-0 hover:bg-white/[0.01]">
                         <td className="p-4 font-bold text-slate-400">{year}</td>
-                        
+
                         {months.map(month => {
                           const val = matrix[year][month];
                           const isPositive = val > 0;
                           const isNegative = val < 0;
-                          
+
                           return (
                             <td key={month} className="p-2">
                               <div className={`
@@ -143,7 +164,7 @@ export default async function VaultDetails({ params }: { params: Promise<{ id: s
                             </td>
                           );
                         })}
-  
+
                         <td className="p-2 pl-6">
                           <div className={`
                             w-full py-3 rounded-lg text-center font-bold border text-white
@@ -157,7 +178,7 @@ export default async function VaultDetails({ params }: { params: Promise<{ id: s
                   })}
                 </tbody>
               </table>
-              
+
               {years.length === 0 && (
                 <div className="py-20 text-center text-slate-600 italic text-sm font-mono">
                   No performance data found. Please add rows in Supabase.
@@ -165,16 +186,33 @@ export default async function VaultDetails({ params }: { params: Promise<{ id: s
               )}
             </div>
           </section>
+
+          {/* Updates Section */}
+          <section className="mb-12">
+            <h2 className="text-2xl font-bold mb-6 flex items-center gap-3">
+              Latest Updates
+            </h2>
+            <div className="bg-[#111] border border-slate-800 p-8 rounded-3xl">
+              {/* whitespace-pre-wrap is the key for mobile readability and preserving line breaks */}
+              <div className="text-slate-300 leading-relaxed whitespace-pre-wrap font-sans">
+                {vault.updates || "No updates provided for this vault yet."}
+              </div>
+            </div>
+          </section>
+
         </div>
-  
+
+
+
+
         {/* RIGHT COLUMN: The Gemini AI Agent */}
         <aside className="lg:w-96">
           <div className="sticky top-8">
             <ChatAgent fundName={vault.name} strategy={vault.strategy} />
           </div>
         </aside>
-  
+
       </div>
-    </main>
+    </main >
   );
 }
