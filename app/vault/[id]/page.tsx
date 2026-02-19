@@ -1,7 +1,6 @@
 import ChatAgent from "@/components/ChatAgent";
 import VaultDetailsTabs from "@/components/VaultDetailsTabs";
 import { createClient } from '@supabase/supabase-js'
-import FundAdminTable from "@/components/FundAdminTable";
 
 // 1. Keep the connection at the top
 const supabase = createClient(
@@ -12,13 +11,33 @@ const supabase = createClient(
 export default async function VaultDetails({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
 
-  // 2. Fetch the data (The Logic)
+  // 2. Fetch everything at once (The "Super Query")
   const [vaultResponse, performanceResponse] = await Promise.all([
-    supabase.from('vaults').select('*').eq('id', id).single(),
-    supabase.from('vault_performance').select('*').eq('vault_id', id).order('date', { ascending: false })
+    supabase
+      .from('vaults')
+      .select(`
+        *, 
+        portfolios(*),
+        transaction_vehicle(*),
+        asset_class(*),
+        geography_breakdown(*),
+        vault_descriptions(*)
+      `)
+      .eq('id', id)
+      // Keep your existing portfolio ordering
+      .order('weight', { referencedTable: 'portfolios', ascending: false })
+      // Add ordering for the new breakdown tables so highest % shows first
+      .order('weight', { referencedTable: 'transaction_vehicle', ascending: false })
+      .order('weight', { referencedTable: 'asset_class', ascending: false })
+      .order('weight', { referencedTable: 'geography_breakdown', ascending: false })
+      .single(),
+
+    supabase
+      .from('vault_performance')
+      .select('*')
+      .eq('vault_id', id)
+      .order('date', { ascending: false })
   ]);
-
-
 
   const vault = vaultResponse.data;
   const performance = performanceResponse.data;
@@ -102,17 +121,25 @@ export default async function VaultDetails({ params }: { params: Promise<{ id: s
           </div>
 
 
-          {/* Description Section */}
+          {/* Overview Section */}
           <section className="mb-12">
             <h2 className="text-2xl font-bold mb-6 flex items-center gap-3">
-              Project Overview
+              Vault Overview
             </h2>
-            <div className="bg-[#111] border border-slate-800 p-8 rounded-3xl">
-              {/* whitespace-pre-wrap is the key for mobile readability and preserving line breaks */}
-              <div className="text-slate-300 leading-relaxed whitespace-pre-wrap font-sans">
-                {vault.description || "No description provided for this vault yet."}
-              </div>
+
+            {/* text-justify with safe newline handling */}
+            <div className="py-5 text-slate-300 leading-relaxed font-sans text-justify">
+              {/* Helper logic inline: split by double newline for paragraphs, replace single newline with space */}
+              {vault.overview
+                ? vault.overview.split(/\n\n+/).map((para: string, i: number) => (
+                  <p key={i} className="mb-4 last:mb-0">
+                    {para.replace(/\n/g, ' ')}
+                  </p>
+                ))
+                : "No description provided for this vault yet."
+              }
             </div>
+
           </section>
 
           {/* Tabs */}
@@ -155,8 +182,8 @@ export default async function VaultDetails({ params }: { params: Promise<{ id: s
                             <td key={month} className="p-2">
                               <div className={`
                                 w-full py-3 rounded-lg text-center transition-all text-[13px]
-                                ${isPositive ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : ''}
-                                ${isNegative ? 'bg-rose-500/10 text-rose-400 border border-rose-500/20' : ''}
+                                ${isPositive ? 'text-emerald-400' : ''}
+                                ${isNegative ? 'text-rose-400' : ''}
                                 ${val === undefined ? 'text-slate-800' : ''}
                               `}>
                                 {val !== undefined ? `${isPositive ? '+' : ''}${val}%` : '—'}
@@ -167,8 +194,7 @@ export default async function VaultDetails({ params }: { params: Promise<{ id: s
 
                         <td className="p-2 pl-6">
                           <div className={`
-                            w-full py-3 rounded-lg text-center font-bold border text-white
-                            ${annualTotal >= 0 ? 'bg-emerald-600 border-emerald-500' : 'bg-rose-600 border-rose-500'}
+                            w-full py-3 rounded-lg text-center font-bold text-white
                           `}>
                             {annualTotal > 0 ? '+' : ''}{annualTotal.toFixed(2)}%
                           </div>

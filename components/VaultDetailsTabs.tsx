@@ -2,15 +2,18 @@
 
 import { useState } from 'react';
 import FundAdminTable from './FundAdminTable'; // Import your fund admin table
+import HoldingsTable from './HoldingsTable';
+import StrategyBreakdown from './StrategyBreakdown';
+import VaultDescription from './VaultDescription';
 
 export default function VaultDetailsTabs({ vault }: { vault: any }) {
     const [activeTab, setActiveTab] = useState('DETAILS');
 
     const tabs = [
         { id: 'DETAILS', label: 'Fund Details' },
-        { id: 'ADMIN', label: 'Fund Admin' },
-        { id: 'POSITION', label: 'Your Position' },
-        { id: 'ACTIVITY', label: 'Activity' }
+        { id: 'DESCRIPTION', label: 'Description' },
+        { id: 'BREAKDOWN', label: 'Strategy Breakdown' },
+        { id: 'FUND HOLDINGS', label: 'Fund Holdings' }
     ];
 
     return (
@@ -40,21 +43,23 @@ export default function VaultDetailsTabs({ vault }: { vault: any }) {
                     </div>
                 )}
 
-                {activeTab === 'ADMIN' && (
-                    <div className="bg-[#111] p-8 rounded-3xl border border-slate-800 text-slate-400">
-                        Fund admin data coming soon from Supabase...
-                    </div>
+                {activeTab === 'DESCRIPTION' && (
+                    <VaultDescription vault={vault} />
                 )}
 
-                {activeTab === 'POSITION' && (
-                    <div className="bg-[#111] p-8 rounded-3xl border border-slate-800 text-slate-400">
-                        Current equity and share details...
-                    </div>
+                {activeTab === 'BREAKDOWN' && (
+                    <StrategyBreakdown vault={vault} />
                 )}
 
-                {activeTab === 'ACTIVITY' && (
-                    <div className="bg-[#111] p-8 rounded-3xl border border-slate-800 text-slate-400">
-                        Recent transaction history...
+                {activeTab === 'FUND HOLDINGS' && (
+                    <div className="bg-[#111] p-8 rounded-3xl border border-slate-800">
+                        <h3 className="text-xl text-white mb-6">Holdings and Exposure</h3>
+                        {/* Logic: If length is greater than 0, show table. Otherwise, show EmptyState */}
+                        {vault.portfolios?.length > 0 ? (
+                            <HoldingsTable holdings={vault.portfolios} />
+                        ) : (
+                            <EmptyState />
+                        )}
                     </div>
                 )}
             </div>
@@ -62,4 +67,12 @@ export default function VaultDetailsTabs({ vault }: { vault: any }) {
     );
 }
 
+// Put this at the very bottom of your file
+function EmptyState() {
+    return (
+        <div className="py-10 text-center text-slate-600 italic text-sm font-mono">
+            Not Applicable or No Updated Data Found
+        </div>
+    );
+}
 
