@@ -1,5 +1,8 @@
+'use client'; // Required for onClick handlers
+
 import { ArrowUpRight, ShieldCheck, Percent, Activity } from "lucide-react";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
+// import Link from "next/link"; // Removed Link as we use router.push
 
 export interface Vault {
   id: string;
@@ -53,6 +56,12 @@ const StrategyTag = ({ label }: { label: string }) => (
 );
 
 export const VaultTable = ({ vaults }: { vaults: Vault[] }) => {
+  const router = useRouter();
+
+  const handleRowClick = (id: string) => {
+    router.push(`/vault/${id}`);
+  };
+
   return (
     <div className="overflow-x-auto rounded-xl border border-gray-800 bg-[#0D0F12]">
       <table className="w-full text-left border-collapse">
@@ -63,12 +72,15 @@ export const VaultTable = ({ vaults }: { vaults: Vault[] }) => {
             <th className="p-4 font-medium text-center">APY</th>
             <th className="p-4 font-medium text-center">Risk Score</th>
             <th className="p-4 font-medium text-center">Sharpe Ratio</th>
-            <th className="p-4 font-medium text-right">Action</th>
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-800">
           {vaults.map((vault) => (
-            <tr key={vault.id} className="hover:bg-[#16191E] transition-colors group">
+            <tr
+              key={vault.id}
+              onClick={() => handleRowClick(vault.id)}
+              className="hover:bg-[#16191E] transition-colors group cursor-pointer"
+            >
               <td className="p-4">
                 <div className="font-bold text-white">{vault.name}</div>
                 <div className="text-xs text-gray-500">{vault.manager}</div>
@@ -86,11 +98,6 @@ export const VaultTable = ({ vaults }: { vaults: Vault[] }) => {
                 </div>
               </td>
               <td className="p-4 text-center font-mono text-blue-400 font-bold">{vault.sharpe_ratio}</td>
-              <td className="p-4 text-right">
-                <Link href={`/vault/${vault.id}`} className="bg-white text-black px-4 py-2 rounded-lg text-sm font-bold hover:bg-gray-200 inline-block">
-                  Analyze
-                </Link>
-              </td>
             </tr>
           ))}
         </tbody>
