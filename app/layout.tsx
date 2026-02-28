@@ -39,6 +39,18 @@ export default function RootLayout({
           {children}
         </main>
 
+        {/* --- Professional Investor Statement --- */}
+        <div className="bg-black py-12 px-8">
+          <div className="max-w-7xl mx-auto">
+            {/* The short white line */}
+            <div className="w-310 h-[0.5px] bg-slate-700 mb-6"></div>
+            <p className="text-slate-500 text-xs md:text-sm leading-relaxed max-w-10xl">
+              <span className="text-white">Professional Investors Only.</span> This platform and its content are restricted to individuals or entities meeting the "Accredited Investor" or "Professional Investor" criteria under respective global jurisdictions.
+            </p>
+          </div>
+        </div>
+
+
         {/* 4. The Footer is now part of the global layout */}
         <Footer />
       </body>

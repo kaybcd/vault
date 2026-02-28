@@ -41,7 +41,7 @@ export default async function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-[#0D0F12] text-white p-8 md:p-16">
+    <main className="min-h-screen bg-black text-white p-8 md:p-16">
       <div className="max-w-7xl mx-auto">
 
         {/* Header Section */}

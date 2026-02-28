@@ -37,13 +37,20 @@ export default function Footer() {
     ];
 
     return (
-        <footer className="bg-black text-white py-16 px-8 border-t border-slate-800">
+        <footer className="bg-[#0D0F12] text-white py-16 px-8 border-t border-slate-800">
             <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-12">
                 {/* Logo Section */}
                 <div className="flex-shrink-0">
                     <div className="w-8 h-8 bg-white rounded-sm flex items-center justify-center">
                         {/* Replace with your actual logo icon */}
                         <span className="text-black font-bold text-xl">F</span>
+                    </div>
+                </div>
+                {/* Bottom Row: All Right Reserved */}
+                <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-12">
+                    <div className="text-slate-500 text-sm">
+                        <p>© 2026 GlobalFront Exploration Fund.</p>
+                        <p>All rights reserved.</p>
                     </div>
                 </div>
 
