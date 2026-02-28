@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GlobalFront Exploration Fund | The 1% Standard. Unlocked.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #ffffff;
+      color: #0d1117;
+      overflow-x: hidden;
+    }
+
+    /* ===== COLOR TOKENS ===== */
+    :root {
+      --dark: #0d1117;
+      --dark-2: #131920;
+      --blue: #2f6bff;        /* vibrant professional blue */
+      --blue-dim: #1a4fcc;    /* darker blue for hover states */
+      --white: #ffffff;
+      --gray: #8a9ab0;
+      --light-bg: #f7f8fa;
+      --border: rgba(255,255,255,0.12);
+      --card-shadow: 0 4px 32px rgba(0,0,0,0.08);
+    }
+
+    /* ===== NAVIGATION ===== */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: var(--dark);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 68px;
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.5px;
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--blue); }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 6px;
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); background: rgba(255,255,255,0.06); }
+    .nav-cta {
+      border: 1.5px solid rgba(255,255,255,0.4) !important;
+      border-radius: 6px !important;
+      color: var(--white) !important;
+      padding: 8px 20px !important;
+      transition: border-color 0.2s, background 0.2s !important;
+    }
+    .nav-cta:hover {
+      border-color: var(--blue) !important;
+      color: var(--blue) !important;
+      background: transparent !important;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      background: var(--dark);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 140px 48px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      right: -100px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(47,107,255,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-particle {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 55%;
+      height: 100%;
+      opacity: 0.18;
+      pointer-events: none;
+      background-image: radial-gradient(circle, rgba(47,107,255,0.6) 1px, transparent 1px);
+      background-size: 28px 28px;
+      mask-image: radial-gradient(ellipse 60% 80% at 70% 50%, black 30%, transparent 80%);
+      -webkit-mask-image: radial-gradient(ellipse 60% 80% at 70% 50%, black 30%, transparent 80%);
+    }
+    .hero-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--blue);
+      border: 1px solid rgba(47,107,255,0.35);
+      border-radius: 100px;
+      padding: 6px 16px;
+      margin-bottom: 32px;
+      width: fit-content;
+    }
+    .hero h1 {
+      font-size: clamp(48px, 7vw, 88px);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.0;
+      letter-spacing: -2px;
+      max-width: 780px;
+      margin-bottom: 28px;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--blue);
+    }
+    .hero-sub {
+      font-size: 18px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.62);
+      max-width: 560px;
+      line-height: 1.7;
+      margin-bottom: 48px;
+    }
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--blue);
+      color: var(--dark);
+      font-size: 14px;
+      font-weight: 700;
+      padding: 14px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      letter-spacing: 0.3px;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: var(--blue-dim); transform: translateY(-1px); }
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border: 1.5px solid rgba(255,255,255,0.3);
+      color: rgba(255,255,255,0.75);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 14px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--blue); color: var(--blue); }
+    .hero-disclaimer {
+      margin-top: 20px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.5px;
+    }
+    .hero-pills {
+      display: flex;
+      gap: 0;
+      margin-top: 80px;
+      border-top: 1px solid var(--border);
+      padding-top: 0;
+      width: calc(100% + 96px);
+      margin-left: -48px;
+    }
+    .hero-pill {
+      flex: 1;
+      padding: 28px 48px;
+      border-right: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      cursor: default;
+      transition: background 0.2s;
+    }
+    .hero-pill:last-child { border-right: none; }
+    .hero-pill:hover { background: rgba(255,255,255,0.03); }
+    .pill-arrow {
+      width: 32px;
+      height: 32px;
+      border: 1.5px solid rgba(255,255,255,0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.5);
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+    .hero-pill span {
+      font-size: 14px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.7);
+    }
+
+    /* ===== SECTION TRANSITIONS ===== */
+    .wave-down {
+      width: 100%;
+      overflow: hidden;
+      line-height: 0;
+      background: var(--dark);
+    }
+    .wave-down svg { display: block; width: 100%; }
+    .wave-up {
+      width: 100%;
+      overflow: hidden;
+      line-height: 0;
+      background: var(--white);
+    }
+    .wave-up svg { display: block; width: 100%; }
+
+    /* ===== SECTION COMMONS ===== */
+    section { position: relative; }
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 16px;
+    }
+    .section-label.dark { color: rgba(0,0,0,0.4); }
+    .section-title {
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+    }
+    .section-title.light { color: var(--white); }
+    .section-title.dark { color: var(--dark); }
+    .section-body {
+      font-size: 17px;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.6);
+      max-width: 600px;
+      margin-top: 16px;
+    }
+    .section-body.dark { color: rgba(0,0,0,0.55); }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 48px; }
+
+    /* ===== OPPORTUNITY SECTION ===== */
+    .opportunity {
+      background: var(--white);
+      padding: 100px 0;
+    }
+    .opportunity-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+      margin-top: 64px;
+    }
+    .opp-card {
+      background: var(--light-bg);
+      border: 1px solid rgba(0,0,0,0.06);
+      border-radius: 16px;
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+    .opp-card:hover {
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.04), 0 8px 24px rgba(37,99,235,0.12);
+      transform: translateY(-2px);
+    }
+    .opp-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px;
+      height: 100%;
+      background: var(--blue);
+      border-radius: 3px 0 0 3px;
+    }
+    .opp-card-num {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 16px;
+    }
+    .opp-card h3 {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 14px;
+      letter-spacing: -0.5px;
+    }
+    .opp-card p {
+      font-size: 15px;
+      line-height: 1.7;
+      color: rgba(0,0,0,0.55);
+    }
+
+    /* ===== MODERN BASKET ===== */
+    .basket {
+      background: var(--dark);
+      padding: 100px 0;
+    }
+    .basket-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+      margin-bottom: 64px;
+    }
+    .basket-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .basket-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px 28px;
+      transition: border-color 0.25s, background 0.25s;
+    }
+    .basket-card:hover {
+      border-color: rgba(47,107,255,0.35);
+      background: rgba(47,107,255,0.04);
+    }
+    .basket-icon {
+      width: 52px;
+      height: 52px;
+      background: rgba(47,107,255,0.1);
+      border: 1px solid rgba(47,107,255,0.2);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      font-size: 24px;
+    }
+    .basket-card h4 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 12px;
+      letter-spacing: -0.3px;
+    }
+    .basket-card p {
+      font-size: 14px;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.5);
+    }
+
+    /* ===== ECOSYSTEM ===== */
+    .ecosystem {
+      background: var(--white);
+      padding: 100px 0;
+    }
+    .ecosystem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      margin-top: 64px;
+    }
+    .eco-feature {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+    .eco-feature:last-child { margin-bottom: 0; }
+    .eco-num {
+      font-size: 56px;
+      font-weight: 900;
+      color: rgba(47,107,255,0.25);
+      line-height: 1;
+      letter-spacing: -3px;
+      flex-shrink: 0;
+      width: 64px;
+    }
+    .eco-content h4 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 10px;
+      letter-spacing: -0.3px;
+    }
+    .eco-content p {
+      font-size: 15px;
+      line-height: 1.7;
+      color: rgba(0,0,0,0.55);
+    }
+    .eco-visual {
+      background: var(--dark);
+      border-radius: 24px;
+      padding: 48px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .eco-visual::before {
+      content: '';
+      position: absolute;
+      right: -60px; bottom: -60px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(47,107,255,0.12) 0%, transparent 70%);
+    }
+    .eco-visual-tag {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 24px;
+    }
+    .eco-visual h3 {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 32px;
+      letter-spacing: -0.8px;
+    }
+    .eco-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .eco-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .eco-step:last-child { border-bottom: none; }
+    .eco-step-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--blue);
+      margin-top: 7px;
+      flex-shrink: 0;
+    }
+    .eco-step-text {
+      font-size: 14px;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.6;
+    }
+    .eco-step-text strong {
+      color: var(--white);
+      font-weight: 600;
+    }
+
+    /* ===== INFRASTRUCTURE / TABLE ===== */
+    .infra {
+      background: var(--dark);
+      padding: 100px 0;
+    }
+    .infra-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      margin-bottom: 64px;
+      align-items: start;
+    }
+    .infra-table-wrap {
+      overflow-x: auto;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    thead tr {
+      background: rgba(47,107,255,0.08);
+      border-bottom: 1px solid var(--border);
+    }
+    thead th {
+      padding: 18px 24px;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--blue);
+    }
+    tbody tr {
+      border-bottom: 1px solid var(--border);
+      transition: background 0.2s;
+    }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: rgba(255,255,255,0.03); }
+    tbody td {
+      padding: 20px 24px;
+      font-size: 14px;
+      color: rgba(255,255,255,0.7);
+      vertical-align: top;
+    }
+    tbody td:first-child {
+      font-weight: 700;
+      color: var(--white);
+    }
+    .td-badge {
+      display: inline-block;
+      background: rgba(47,107,255,0.12);
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      padding: 4px 10px;
+      border-radius: 100px;
+      border: 1px solid rgba(47,107,255,0.25);
+    }
+
+    /* ===== COMPETITIVE EDGE ===== */
+    .edge {
+      background: var(--white);
+      padding: 100px 0;
+    }
+    .edge-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+      margin-top: 64px;
+    }
+    .edge-card {
+      background: var(--white);
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 16px;
+      padding: 40px;
+      transition: box-shadow 0.25s, border-color 0.25s;
+    }
+    .edge-card:hover {
+      box-shadow: 0 8px 40px rgba(0,0,0,0.1);
+      border-color: rgba(47,107,255,0.5);
+    }
+    .edge-num {
+      font-size: 56px;
+      font-weight: 900;
+      color: rgba(0,0,0,0.05);
+      line-height: 1;
+      margin-bottom: 12px;
+      letter-spacing: -3px;
+    }
+    .edge-card h4 {
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 12px;
+      letter-spacing: -0.3px;
+    }
+    .edge-card p {
+      font-size: 15px;
+      line-height: 1.7;
+      color: rgba(0,0,0,0.55);
+    }
+
+    /* ===== CTA SECTION ===== */
+    .cta-section {
+      background: var(--dark);
+      padding: 120px 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 800px;
+      height: 400px;
+      background: radial-gradient(ellipse, rgba(47,107,255,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cta-section .section-label { margin: 0 auto 20px; }
+    .cta-section .section-title {
+      max-width: 640px;
+      margin: 0 auto 20px;
+    }
+    .cta-section .section-body {
+      max-width: 520px;
+      margin: 0 auto 48px;
+      text-align: center;
+    }
+    .cta-actions {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--white);
+      padding: 64px 48px 40px;
+      border-top: 1px solid rgba(0,0,0,0.08);
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+    .footer-logo {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--dark);
+      letter-spacing: -0.5px;
+      text-decoration: none;
+    }
+    .footer-logo span { color: var(--blue); }
+    .footer-disclaimer {
+      max-width: 680px;
+      font-size: 12px;
+      line-height: 1.7;
+      color: rgba(0,0,0,0.4);
+    }
+    .footer-disclaimer strong {
+      color: rgba(0,0,0,0.6);
+      font-weight: 600;
+    }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 24px;
+      border-top: 1px solid rgba(0,0,0,0.07);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-copy {
+      font-size: 13px;
+      color: rgba(0,0,0,0.35);
+    }
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+    .footer-links a {
+      font-size: 13px;
+      color: rgba(0,0,0,0.4);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--dark); }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .hero { padding: 100px 24px 60px; }
+      .hero-pills { flex-direction: column; gap: 0; }
+      .container { padding: 0 24px; }
+      .opportunity-grid,
+      .basket-header,
+      .ecosystem-grid,
+      .infra-header,
+      .edge-grid { grid-template-columns: 1fr; gap: 40px; }
+      .basket-cards { grid-template-columns: 1fr; }
+      .footer-top { flex-direction: column; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav>
+    <a href="#" class="nav-logo">global<span>front</span></a>
+    <ul class="nav-links">
+      <li><a href="#opportunity">The Opportunity</a></li>
+      <li><a href="#basket">The Modern Basket</a></li>
+      <li><a href="#ecosystem">The Platform</a></li>
+      <li><a href="#infra">Infrastructure</a></li>
+      <li><a href="/dashboard" class="nav-cta">Access App</a></li>
+    </ul>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="hero">
+    <div class="hero-particle"></div>
+    <div class="hero-tag">Professional Investors Only</div>
+    <h1>The 1% Standard.<br /><em>Unlocked.</em></h1>
+    <p class="hero-sub">Institutional-grade access for the new generation of accredited investors. We bridge the gap between private wealth and the frontier of global innovation.</p>
+    <div class="hero-actions">
+        <a href="/dashboard" class="btn-primary">Private Investment Access &nbsp;→</a>
+      <a href="#opportunity" class="btn-outline">Discover the Opportunity</a>
+    </div>
+    <p class="hero-disclaimer">Restricted to Accredited &amp; Professional Investors under applicable securities law.</p>
+    <div class="hero-pills">
+      <div class="hero-pill">
+        <div class="pill-arrow">→</div>
+        <span>Highly-Selective Dealflow</span>
+      </div>
+      <div class="hero-pill">
+        <div class="pill-arrow">→</div>
+        <span>Frontier Tech Conviction</span>
+      </div>
+      <div class="hero-pill">
+        <div class="pill-arrow">→</div>
+        <span>Institutional-Grade Safety</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Wave transition: dark → white -->
+  <div style="background:var(--dark); line-height:0;">
+    <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="display:block;width:100%;">
+      <path d="M0,0 C480,80 960,80 1440,0 L1440,80 L0,80 Z" fill="#ffffff"/>
+    </svg>
+  </div>
+
+  <!-- ===== OPPORTUNITY ===== -->
+  <section class="opportunity" id="opportunity">
+    <div class="container">
+      <p class="section-label dark">The Opportunity</p>
+      <h2 class="section-title dark">Beyond the Public Market.</h2>
+      <p class="section-body dark">True value is often created long before a company reaches the public eye. GlobalFront Exploration Fund provides a digital gateway to high-conviction opportunities that define the next century—assets once reserved for institutional titans and eight-figure family offices.</p>
+      <div class="opportunity-grid">
+        <div class="opp-card">
+          <div class="opp-card-num">01 — Private Titan Effect</div>
+          <h3>Secure Your Stake Before the Window Closes</h3>
+          <p>Secure your stake in world-shaping entities like SpaceX, Neuralink, and xAI before the window of opportunity closes. These are the defining companies of the 21st century, and access has historically been reserved for the ultra-wealthy.</p>
+        </div>
+        <div class="opp-card">
+          <div class="opp-card-num">02 — High-Barrier Entry</div>
+          <h3>Democratizing the $10M+ Minimum</h3>
+          <p>We specialize in access to high-performance funds that typically require $10M+ minimums. We democratize this entry for the modern accredited investor, enabling precise and diversified portfolio construction without the institutional prerequisite.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Wave transition: white → dark -->
+  <div style="background:#ffffff; line-height:0;">
+    <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="display:block;width:100%;">
+      <path d="M0,80 C480,0 960,0 1440,80 L1440,0 L0,0 Z" fill="#0d1117"/>
+    </svg>
+  </div>
+
+  <!-- ===== THE MODERN BASKET ===== -->
+  <section class="basket" id="basket">
+    <div class="container">
+      <div class="basket-header">
+        <div>
+          <p class="section-label">The Modern Basket</p>
+          <h2 class="section-title light">Strategic Alpha.<br />Curated for the AI Era.</h2>
+        </div>
+        <div>
+          <p class="section-body">We are the only platform built for the generational opportunity of the 2020s. We curate 'The Modern Basket'—a proprietary blend of future technology development and sophisticated liquid strategies.</p>
+        </div>
+      </div>
+      <div class="basket-cards">
+        <div class="basket-card">
+          <div class="basket-icon">🚀</div>
+          <h4>Hard-Tech Conviction</h4>
+          <p>Direct and secondary exposure to the titans of the 21st century: Space Exploration (SpaceX), Neuralink, and the leaders in Robotics.</p>
+        </div>
+        <div class="basket-card">
+          <div class="basket-icon">📈</div>
+          <h4>Sophisticated Liquid Strategies</h4>
+          <p>Dynamic allocations into bespoke hedge funds and high-frequency algo funds like Point72, optimized for non-correlated returns and downside protection.</p>
+        </div>
+        <div class="basket-card">
+          <div class="basket-icon">🤖</div>
+          <h4>Frontier Robotics &amp; AI</h4>
+          <p>Early-stage exposure to the companies automating the physical and digital worlds—capturing the next wave of technological transformation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Wave transition: dark → white -->
+  <div style="background:#0d1117; line-height:0;">
+    <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="display:block;width:100%;">
+      <path d="M0,0 C480,80 960,80 1440,0 L1440,80 L0,80 Z" fill="#ffffff"/>
+    </svg>
+  </div>
+
+  <!-- ===== ECOSYSTEM / PLATFORM ===== -->
+  <section class="ecosystem" id="ecosystem">
+    <div class="container">
+      <p class="section-label dark">The Ecosystem</p>
+      <h2 class="section-title dark">The Platform Experience</h2>
+      <div class="ecosystem-grid">
+        <div>
+          <p class="section-body dark" style="margin-top:16px; margin-bottom:48px;">We have engineered a high-access investment platform that removes the friction of legacy finance.</p>
+          <div class="eco-feature">
+            <div class="eco-num">01</div>
+            <div class="eco-content">
+              <h4>Zero Friction</h4>
+              <p>Say goodbye to paper-based onboarding that takes weeks. Our Digitalized e-KYC and e-Onboarding allow you to verify your status and deploy capital with modern speed.</p>
+            </div>
+          </div>
+          <div class="eco-feature">
+            <div class="eco-num">02</div>
+            <div class="eco-content">
+              <h4>Full Spectrum Compliance</h4>
+              <p>We partner with global licensed firms and regulated custodians to ensure every transaction setup fulfills the stringent requirements of its respective jurisdiction.</p>
+            </div>
+          </div>
+        </div>
+        <div class="eco-visual">
+          <div class="eco-visual-tag">Platform Workflow</div>
+          <h3>From Onboarding<br />to Deployment</h3>
+          <div class="eco-steps">
+            <div class="eco-step">
+              <div class="eco-step-dot"></div>
+              <div class="eco-step-text"><strong>Digital e-KYC Verification</strong> — Accredited investor status confirmed in minutes, not weeks.</div>
+            </div>
+            <div class="eco-step">
+              <div class="eco-step-dot"></div>
+              <div class="eco-step-text"><strong>Portfolio Construction</strong> — Tailored allocation across The Modern Basket components.</div>
+            </div>
+            <div class="eco-step">
+              <div class="eco-step-dot"></div>
+              <div class="eco-step-text"><strong>Licensed Execution</strong> — All securities cleared through regulated, licensed partners.</div>
+            </div>
+            <div class="eco-step">
+              <div class="eco-step-dot"></div>
+              <div class="eco-step-text"><strong>Real-Time Tracking</strong> — Transparent dashboard replacing the black box of traditional fund management.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Wave transition: white → dark -->
+  <div style="background:#ffffff; line-height:0;">
+    <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="display:block;width:100%;">
+      <path d="M0,80 C480,0 960,0 1440,80 L1440,0 L0,0 Z" fill="#0d1117"/>
+    </svg>
+  </div>
+
+  <!-- ===== INSTITUTIONAL RIGOR ===== -->
+  <section class="infra" id="infra">
+    <div class="container">
+      <div class="infra-header">
+        <div>
+          <p class="section-label">Institutional Rigor</p>
+          <h2 class="section-title light">Our Infrastructure<br />of Trust</h2>
+        </div>
+        <div>
+          <p class="section-body">We ensure that institutional-grade access is matched by institutional-grade safety. Every pillar of our infrastructure is engineered for maximum security and regulatory integrity.</p>
+        </div>
+      </div>
+      <div class="infra-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Pillar</th>
+              <th>Partner Strategy</th>
+              <th>Role in Your Portfolio</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="td-badge">Technology</span></td>
+              <td>Direct &amp; Secondary</td>
+              <td>Verified access to SpaceX, xAI, and Neuralink.</td>
+            </tr>
+            <tr>
+              <td><span class="td-badge">Liquid Alpha</span></td>
+              <td>Elite Hedge Funds</td>
+              <td>Strategic allocations (Point72 / Millennium) for stability and non-correlated returns.</td>
+            </tr>
+            <tr>
+              <td><span class="td-badge">Execution</span></td>
+              <td>Licensed Firms</td>
+              <td>All securities trading cleared through fully licensed partners.</td>
+            </tr>
+            <tr>
+              <td><span class="td-badge">Safety</span></td>
+              <td>Tier-1 Custodian</td>
+              <td>Assets held by major institutions (e.g., HSBC, Fidelity).</td>
+            </tr>
+            <tr>
+              <td><span class="td-badge">Verification</span></td>
+              <td>Audit &amp; Legal</td>
+              <td>Professional Auditors and Law Firms providing independent oversight.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Wave transition: dark → white -->
+  <div style="background:#0d1117; line-height:0;">
+    <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="display:block;width:100%;">
+      <path d="M0,0 C480,80 960,80 1440,0 L1440,80 L0,80 Z" fill="#ffffff"/>
+    </svg>
+  </div>
+
+  <!-- ===== COMPETITIVE EDGE ===== -->
+  <section class="edge" id="edge">
+    <div class="container">
+      <p class="section-label dark">Why GlobalFront</p>
+      <h2 class="section-title dark">Our Competitive Edge</h2>
+      <div class="edge-grid">
+        <div class="edge-card">
+          <div class="edge-num">01</div>
+          <h4>Curation, Not Collection</h4>
+          <p>We don't just offer "tech." We engineer a Modern Basket. By blending high-conviction hardware (SpaceX) with sophisticated, non-correlated liquid strategies (Point72), we solve the volatility problem that keeps most investors out of the private markets.</p>
+        </div>
+        <div class="edge-card">
+          <div class="edge-num">02</div>
+          <h4>The Eight-Figure Bridge</h4>
+          <p>We have dismantled the "Institutional Minimum." Strategies that once required a $10,000,000+ commitment are now accessible through our platform, allowing for more precise and diversified portfolio construction.</p>
+        </div>
+        <div class="edge-card">
+          <div class="edge-num">03</div>
+          <h4>Radical Transparency through Technology</h4>
+          <p>Our platform is a tech product as much as a financial one. From Digitalized e-KYC to real-time allocation tracking, we have replaced the "Black Box" of traditional fund management with a sleek, user-centric dashboard.</p>
+        </div>
+        <div class="edge-card">
+          <div class="edge-num">04</div>
+          <h4>Regulatory Integrity</h4>
+          <p>We don't cut corners. By partnering with licensed securities firms, Professional Auditors and Law Firms, we provide an environment where the high-risk potential of the Frontier is managed with the highest level of institutional safety.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Wave transition: white → dark -->
+  <div style="background:#ffffff; line-height:0;">
+    <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="display:block;width:100%;">
+      <path d="M0,80 C480,0 960,0 1440,80 L1440,0 L0,0 Z" fill="#0d1117"/>
+    </svg>
+  </div>
+
+  <!-- ===== CTA ===== -->
+  <section class="cta-section" id="cta">
+    <div class="container">
+      <p class="section-label" style="text-align:center;">The Frontier is Open</p>
+      <h2 class="section-title light" style="text-align:center;">The Gap Has Been Closed.</h2>
+      <p class="section-body" style="text-align:center;">The gap between private markets and individual wealth has been closed. Join a new generation of investors tapping into opportunities that traditional banks and institutions cannot reach.</p>
+      <div class="cta-actions">
+        <a href="#" class="btn-primary">Apply for Accreditation &nbsp;→</a>
+        <a href="#infra" class="btn-outline">View Infrastructure</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <a href="#" class="footer-logo">global<span>front</span></a>
+        <div class="footer-disclaimer">
+          <strong>Professional Investors Only.</strong> This platform and its content are restricted to individuals or entities meeting the "Accredited Investor" or "Professional Investor" criteria as defined under the Securities and Futures Ordinance (SFO) of Hong Kong and respective global jurisdictions. The information on this website does not constitute an offer to sell or a solicitation to buy any security. Past performance is not indicative of future results. All investments involve risk, including the possible loss of principal.
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span class="footer-copy">© 2025 GlobalFront Exploration Fund. All rights reserved.</span>
+        <div class="footer-links">
+          <a href="#">Terms &amp; Conditions</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Regulatory Disclosures</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
