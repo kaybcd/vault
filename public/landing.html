@@ -80,6 +80,81 @@
       color: var(--blue) !important;
       background: transparent !important;
     }
+    /* Mobile menu button (hidden on desktop) */
+    .nav-menu-btn {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--white);
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .nav-menu-btn:hover {
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.2);
+    }
+    .nav-menu-btn svg {
+      width: 22px;
+      height: 22px;
+    }
+    .nav-menu-btn[aria-expanded="true"] .icon-open { display: none; }
+    .nav-menu-btn[aria-expanded="true"] .icon-close { display: block; }
+    .nav-menu-btn .icon-close { display: none; }
+    /* Dropdown panel (mobile) */
+    .nav-dropdown {
+      display: none;
+      position: fixed;
+      top: 68px;
+      left: 0;
+      right: 0;
+      background: var(--dark);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 24px 24px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      z-index: 999;
+    }
+    .nav-dropdown ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-dropdown li { margin: 0; }
+    .nav-dropdown a {
+      display: block;
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+      padding: 14px 12px;
+      border-radius: 8px;
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-dropdown a:hover,
+    .nav-dropdown a:focus {
+      color: var(--white);
+      background: rgba(255,255,255,0.08);
+    }
+    .nav-dropdown .nav-cta {
+      border: 1.5px solid rgba(255,255,255,0.4);
+      border-radius: 8px;
+      color: var(--white);
+      text-align: center;
+      margin-top: 8px;
+    }
+    .nav-dropdown .nav-cta:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+      background: transparent;
+    }
+    @media (min-width: 901px) {
+      .nav-dropdown { display: none !important; }
+    }
 
     /* ===== HERO ===== */
     .hero {
@@ -696,6 +771,19 @@
     @media (max-width: 900px) {
       nav { padding: 0 24px; }
       .nav-links { display: none; }
+      .nav-menu-btn { display: flex; }
+      .nav-dropdown { display: block; }
+      .nav-dropdown:not(.is-open) {
+        visibility: hidden;
+        opacity: 0;
+        transform: translateY(-12px);
+        transition: visibility 0.2s, opacity 0.2s, transform 0.2s;
+      }
+      .nav-dropdown.is-open {
+        visibility: visible;
+        opacity: 1;
+        transform: translateY(0);
+      }
       .hero { padding: 100px 24px 60px; }
       .hero-pills { flex-direction: column; gap: 0; }
       .container { padding: 0 24px; }
@@ -722,7 +810,24 @@
       <li><a href="#infra">Infrastructure</a></li>
       <li><a href="/dashboard" class="nav-cta">Access App</a></li>
     </ul>
+    <button type="button" class="nav-menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="nav-dropdown" id="nav-menu-btn">
+      <span class="icon-open" aria-hidden="true">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </span>
+      <span class="icon-close" aria-hidden="true">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </span>
+    </button>
   </nav>
+  <div class="nav-dropdown" id="nav-dropdown" role="menu">
+    <ul>
+      <li><a href="#opportunity" role="menuitem">The Opportunity</a></li>
+      <li><a href="#basket" role="menuitem">The Modern Basket</a></li>
+      <li><a href="#ecosystem" role="menuitem">The Platform</a></li>
+      <li><a href="#infra" role="menuitem">Infrastructure</a></li>
+      <li><a href="/dashboard" class="nav-cta" role="menuitem">Access App</a></li>
+    </ul>
+  </div>
 
   <!-- ===== HERO ===== -->
   <section class="hero" id="hero">
@@ -1011,5 +1116,36 @@
     </div>
   </footer>
 
+  <script>
+    (function() {
+      var nav = document.querySelector('nav');
+      var btn = document.getElementById('nav-menu-btn');
+      var dropdown = document.getElementById('nav-dropdown');
+      if (!btn || !dropdown || !nav) return;
+      function openMenu() {
+        dropdown.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+        btn.setAttribute('aria-label', 'Close menu');
+      }
+      function closeMenu() {
+        dropdown.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.setAttribute('aria-label', 'Open menu');
+      }
+      function toggleMenu() {
+        if (dropdown.classList.contains('is-open')) closeMenu();
+        else openMenu();
+      }
+      btn.addEventListener('click', toggleMenu);
+      dropdown.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', closeMenu);
+      });
+      document.addEventListener('click', function(e) {
+        if (dropdown.classList.contains('is-open') && !nav.contains(e.target) && !dropdown.contains(e.target)) {
+          closeMenu();
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
