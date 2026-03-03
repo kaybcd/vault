@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GlobalFront Exploration Fund | The 1% Standard. Unlocked.</title>
+  <title>GlobalFront Exploration Fund | Strategic Access to Global Growth</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -110,29 +110,39 @@
     .nav-dropdown {
       display: none;
       position: fixed;
-      top: 68px;
+      top: 0;
       left: 0;
       right: 0;
+      bottom: 0;
       background: var(--dark);
-      border-bottom: 1px solid var(--border);
-      padding: 16px 24px 24px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      padding: 0;
       z-index: 999;
+      overflow-y: auto;
     }
     .nav-dropdown ul {
       list-style: none;
       margin: 0;
       padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
     }
     .nav-dropdown li { margin: 0; }
+    .nav-dropdown-inner {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 88px 24px 48px;
+    }
     .nav-dropdown a {
       display: block;
       color: rgba(255,255,255,0.85);
       text-decoration: none;
-      font-size: 15px;
+      font-size: 17px;
       font-weight: 500;
-      padding: 14px 12px;
-      border-radius: 8px;
+      padding: 18px 16px;
+      border-radius: 10px;
       transition: color 0.2s, background 0.2s;
     }
     .nav-dropdown a:hover,
@@ -142,10 +152,11 @@
     }
     .nav-dropdown .nav-cta {
       border: 1.5px solid rgba(255,255,255,0.4);
-      border-radius: 8px;
+      border-radius: 10px;
       color: var(--white);
       text-align: center;
-      margin-top: 8px;
+      margin-top: 24px;
+      padding: 18px 24px !important;
     }
     .nav-dropdown .nav-cta:hover {
       border-color: var(--blue);
@@ -370,10 +381,12 @@
       position: relative;
       overflow: hidden;
       transition: box-shadow 0.3s ease, transform 0.3s ease;
-    }
-    .opp-card:hover {
       box-shadow: 0 20px 40px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.04), 0 8px 24px rgba(37,99,235,0.12);
       transform: translateY(-2px);
+    }
+    .opp-card:hover {
+      box-shadow: none;
+      transform: translateY(0);
     }
     .opp-card::before {
       content: '';
@@ -427,9 +440,11 @@
       border: 1px solid var(--border);
       border-radius: 16px;
       padding: 36px 28px;
-      transition: border-color 0.25s, background 0.25s;
+      transition: box-shadow 0.25s, border-color 0.25s, background 0.25s;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.2), 0 0 0 1px rgba(255,255,255,0.04);
     }
     .basket-card:hover {
+      box-shadow: none;
       border-color: rgba(47,107,255,0.35);
       background: rgba(47,107,255,0.04);
     }
@@ -479,10 +494,12 @@
       background: rgba(255,255,255,0.6);
       border: 1px solid rgba(0,0,0,0.06);
       transition: box-shadow 0.3s ease, transform 0.3s ease;
-    }
-    .eco-feature:hover {
       box-shadow: 0 16px 40px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.04), 0 8px 24px rgba(37,99,235,0.08);
       transform: translateY(-2px);
+    }
+    .eco-feature:hover {
+      box-shadow: none;
+      transform: translateY(0);
     }
     .eco-feature:last-child { margin-bottom: 0; }
     .eco-num {
@@ -612,6 +629,13 @@
       color: rgba(255,255,255,0.7);
       vertical-align: top;
     }
+    tbody td a {
+      color: rgba(255,255,255,0.9);
+      text-decoration: underline;
+    }
+    tbody td a:hover {
+      color: var(--white);
+    }
     tbody td:first-child {
       font-weight: 700;
       color: var(--white);
@@ -645,9 +669,10 @@
       border-radius: 16px;
       padding: 40px;
       transition: box-shadow 0.25s, border-color 0.25s;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.1);
     }
     .edge-card:hover {
-      box-shadow: 0 8px 40px rgba(0,0,0,0.1);
+      box-shadow: none;
       border-color: rgba(47,107,255,0.5);
     }
     .edge-num {
@@ -772,17 +797,16 @@
       nav { padding: 0 24px; }
       .nav-links { display: none; }
       .nav-menu-btn { display: flex; }
-      .nav-dropdown { display: block; }
+      .nav-dropdown { display: block; top: 0; left: 0; right: 0; bottom: 0; }
+      nav { z-index: 1001; }
       .nav-dropdown:not(.is-open) {
         visibility: hidden;
         opacity: 0;
-        transform: translateY(-12px);
-        transition: visibility 0.2s, opacity 0.2s, transform 0.2s;
+        transition: visibility 0.2s, opacity 0.2s;
       }
       .nav-dropdown.is-open {
         visibility: visible;
         opacity: 1;
-        transform: translateY(0);
       }
       .hero { padding: 100px 24px 60px; }
       .hero-pills { flex-direction: column; gap: 0; }
@@ -804,11 +828,11 @@
   <nav>
     <a href="#" class="nav-logo">global<span>front</span></a>
     <ul class="nav-links">
-      <li><a href="#opportunity">The Opportunity</a></li>
-      <li><a href="#basket">The Modern Basket</a></li>
-      <li><a href="#ecosystem">The Platform</a></li>
-      <li><a href="#infra">Infrastructure</a></li>
-      <li><a href="/dashboard" class="nav-cta">Access App</a></li>
+      <li><a href="#opportunity">Target Markets</a></li>
+      <li><a href="#basket">Thesis</a></li>
+      <li><a href="#ecosystem">About Us</a></li>
+      <li><a href="#infra">Milestones</a></li>
+      <li><a href="/dashboard" class="nav-cta">Enter App</a></li>
     </ul>
     <button type="button" class="nav-menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="nav-dropdown" id="nav-menu-btn">
       <span class="icon-open" aria-hidden="true">
@@ -820,21 +844,23 @@
     </button>
   </nav>
   <div class="nav-dropdown" id="nav-dropdown" role="menu">
-    <ul>
-      <li><a href="#opportunity" role="menuitem">The Opportunity</a></li>
-      <li><a href="#basket" role="menuitem">The Modern Basket</a></li>
-      <li><a href="#ecosystem" role="menuitem">The Platform</a></li>
-      <li><a href="#infra" role="menuitem">Infrastructure</a></li>
-      <li><a href="/dashboard" class="nav-cta" role="menuitem">Access App</a></li>
-    </ul>
+    <div class="nav-dropdown-inner">
+      <ul>
+        <li><a href="#opportunity" role="menuitem">Target Markets</a></li>
+        <li><a href="#basket" role="menuitem">Thesis</a></li>
+        <li><a href="#ecosystem" role="menuitem">About Us</a></li>
+        <li><a href="#infra" role="menuitem">Milestones</a></li>
+        <li><a href="/dashboard" class="nav-cta" role="menuitem">Enter App</a></li>
+      </ul>
+    </div>
   </div>
 
   <!-- ===== HERO ===== -->
   <section class="hero" id="hero">
     <div class="hero-particle"></div>
     <div class="hero-tag">Professional Investors Only</div>
-    <h1>The 1% Standard.<br /><em>Unlocked.</em></h1>
-    <p class="hero-sub">Institutional-grade access for the new generation of accredited investors. We bridge the gap between private wealth and the frontier of global innovation.</p>
+    <h1>Global Growth<br /><em>Strategic Access</em></h1>
+    <p class="hero-sub">The high-access investment platform for the new generation of accredited investors. A Gateway for private wealth into the frontier of global innovation.</p>
     <div class="hero-actions">
         <a href="/dashboard" class="btn-primary">Private Investment Access &nbsp;→</a>
       <a href="#opportunity" class="btn-outline">Discover the Opportunity</a>
@@ -866,19 +892,19 @@
   <!-- ===== OPPORTUNITY ===== -->
   <section class="opportunity" id="opportunity">
     <div class="container">
-      <p class="section-label dark">The Opportunity</p>
-      <h2 class="section-title dark">Beyond the Public Market.</h2>
+      <p class="section-label dark">Target Markets</p>
+      <h2 class="section-title dark">The 1% Standard. Unlocked.</h2>
       <p class="section-body dark">True value is often created long before a company reaches the public eye. GlobalFront Exploration Fund provides a digital gateway to high-conviction opportunities that define the next century—assets once reserved for institutional titans and eight-figure family offices.</p>
       <div class="opportunity-grid">
         <div class="opp-card">
           <div class="opp-card-num">01 — Private Titan Effect</div>
-          <h3>Secure Your Stake Before the Window Closes</h3>
-          <p>Secure your stake in world-shaping entities like SpaceX, Neuralink, and xAI before the window of opportunity closes. These are the defining companies of the 21st century, and access has historically been reserved for the ultra-wealthy.</p>
+          <h3>Revolutionary Technology <br /> (Private Markets)</h3>
+          <p>High-conviction early-stage exposure to private leaders in AI, Robotics, Space Exploration, Neurotechnology and more in the physical and digital worlds. Capturing value in the pre-IPO phase, where the most significant long-term growth is institutionalized.</p>
         </div>
         <div class="opp-card">
           <div class="opp-card-num">02 — High-Barrier Entry</div>
-          <h3>Democratizing the $10M+ Minimum</h3>
-          <p>We specialize in access to high-performance funds that typically require $10M+ minimums. We democratize this entry for the modern accredited investor, enabling precise and diversified portfolio construction without the institutional prerequisite.</p>
+          <h3>Quantitative Excellence <br /> (Liquid Strategies)</h3>
+          <p>Dynamic allocations into bespoke liquid/semi-liquid hedge funds, PE funds and high-frequency algo funds like Point72, Blackstone and Millenium, optimized for non-correlated returns and downside protection to thrive in volatile market conditions. </p>
         </div>
       </div>
     </div>
@@ -896,28 +922,28 @@
     <div class="container">
       <div class="basket-header">
         <div>
-          <p class="section-label">The Modern Basket</p>
-          <h2 class="section-title light">Strategic Alpha.<br />Curated for the AI Era.</h2>
+          <p class="section-label">Thesis</p>
+          <h2 class="section-title light">Positioned <br /> For the Future</h2>
         </div>
         <div>
-          <p class="section-body">We are the only platform built for the generational opportunity of the 2020s. We curate 'The Modern Basket'—a proprietary blend of future technology development and sophisticated liquid strategies.</p>
+          <p class="section-body">We are a platform built for the generational opportunity of the 2020s. We curate 'The Modern Basket'—a proprietary blend of future technology development and sophisticated strategies.</p>
         </div>
       </div>
       <div class="basket-cards">
         <div class="basket-card">
-          <div class="basket-icon">🚀</div>
-          <h4>Hard-Tech Conviction</h4>
-          <p>Direct and secondary exposure to the titans of the 21st century: Space Exploration (SpaceX), Neuralink, and the leaders in Robotics.</p>
+          <div class="basket-icon">🌐</div>
+          <h4>Blue Ocean Strategy</h4>
+          <p>We seek to identify the Pioneers in Blue Ocean Markets: the entities that will emerge as the natural monopolies of the new frontier, possessing the scale and the proprietary depth to become the permanent pillars of the global financial landscape.</p>
         </div>
         <div class="basket-card">
-          <div class="basket-icon">📈</div>
-          <h4>Sophisticated Liquid Strategies</h4>
-          <p>Dynamic allocations into bespoke hedge funds and high-frequency algo funds like Point72, optimized for non-correlated returns and downside protection.</p>
+          <div class="basket-icon">📎</div>
+          <h4>Back the Best Teams</h4>
+          <p>We back teams that possess a rare fusion of scientific brilliance and institutional discipline. By aligning ourselves with elite practitioners who understand the nuances of this new era, we ensure that the "Alpha" is derived from superior insight and rigorous operational precision.</p>
         </div>
         <div class="basket-card">
-          <div class="basket-icon">🤖</div>
-          <h4>Frontier Robotics &amp; AI</h4>
-          <p>Early-stage exposure to the companies automating the physical and digital worlds—capturing the next wave of technological transformation.</p>
+          <div class="basket-icon">♟️</div>
+          <h4>Generational AI Opportunities</h4>
+          <p>AI is a "meta-technology" that will accelerate human development at a speed without historical precedent. It is the engine that will redefine productivity, condense decades of innovation into years, and, most importantly, reshape the global allocation of wealth.</p>
         </div>
       </div>
     </div>
@@ -933,45 +959,46 @@
   <!-- ===== ECOSYSTEM / PLATFORM ===== -->
   <section class="ecosystem" id="ecosystem">
     <div class="container">
-      <p class="section-label dark">The Ecosystem</p>
-      <h2 class="section-title dark">The Platform Experience</h2>
+      <p class="section-label dark">About Us</p>
+      <h2 class="section-title dark">Connecting <br />Global Tech Hubs & <br />Financial Centres</h2>
       <div class="ecosystem-grid">
         <div>
-          <p class="section-body dark" style="margin-top:16px; margin-bottom:48px;">We have engineered a high-access investment platform that removes the friction of legacy finance.</p>
+          <p class="section-body dark" style="margin-top:16px; margin-bottom:48px;">Our team is based in Silicon Valley, New York and Hong Kong.</p>
           <div class="eco-feature">
             <div class="eco-num">01</div>
             <div class="eco-content">
-              <h4>Zero Friction</h4>
-              <p>Say goodbye to paper-based onboarding that takes weeks. Our Digitalized e-KYC and e-Onboarding allow you to verify your status and deploy capital with modern speed.</p>
+              <h4>Be At the Frontier</h4>
+              <p>GlobalFront Exploration Fund was founded on a singular observation: the most transformative value in the 21st century is being created in private ecosystems that traditional institutions are structurally unable to access.</p>
             </div>
           </div>
           <div class="eco-feature">
             <div class="eco-num">02</div>
             <div class="eco-content">
-              <h4>Full Spectrum Compliance</h4>
-              <p>We partner with global licensed firms and regulated custodians to ensure every transaction setup fulfills the stringent requirements of its respective jurisdiction.</p>
+              <h4>Institutional Standards</h4>
+              <p>While legacy firms are bound by the slow-moving cycles of public markets, we operate at the speed of the Frontier. We provide the infrastructure for the new generation of wealth to participate in the companies that are re-writing the human story—from the colonization of space to the fusion of technology and AI.</p>
             </div>
           </div>
         </div>
         <div class="eco-visual">
-          <div class="eco-visual-tag">Platform Workflow</div>
-          <h3>From Onboarding<br />to Deployment</h3>
+          <div class="eco-visual-tag">Counterparties</div>
+          <h3>Qualified Investors</h3>
           <div class="eco-steps">
             <div class="eco-step">
               <div class="eco-step-dot"></div>
-              <div class="eco-step-text"><strong>Digital e-KYC Verification</strong> — Accredited investor status confirmed in minutes, not weeks.</div>
+              <div class="eco-step-text"><strong>Institutional Investors</strong> — Providing the specialized "Frontier" sleeve for institutional funds.
+              </div>
             </div>
             <div class="eco-step">
               <div class="eco-step-dot"></div>
-              <div class="eco-step-text"><strong>Portfolio Construction</strong> — Tailored allocation across The Modern Basket components.</div>
+              <div class="eco-step-text"><strong>Family Offices</strong> — Offering a sophisticated bridge for the transition of legacy wealth into the technology-driven era.</div>
             </div>
             <div class="eco-step">
               <div class="eco-step-dot"></div>
-              <div class="eco-step-text"><strong>Licensed Execution</strong> — All securities cleared through regulated, licensed partners.</div>
+              <div class="eco-step-text"><strong>Pre-Approved High-Net-Worth Individuals</strong> — Serving accredited investors who meet stringent jurisdictional requirements for professional status.</div>
             </div>
             <div class="eco-step">
               <div class="eco-step-dot"></div>
-              <div class="eco-step-text"><strong>Real-Time Tracking</strong> — Transparent dashboard replacing the black box of traditional fund management.</div>
+              <div class="eco-step-text"><strong>Sophisticated capital allocators</strong> — The platform is currently not open to the general public.</div>
             </div>
           </div>
         </div>
@@ -992,7 +1019,7 @@
       <div class="infra-header">
         <div>
           <p class="section-label">Institutional Rigor</p>
-          <h2 class="section-title light">Our Infrastructure<br />of Trust</h2>
+          <h2 class="section-title light">Partnerships<br />and Milestones</h2>
         </div>
         <div>
           <p class="section-body">We ensure that institutional-grade access is matched by institutional-grade safety. Every pillar of our infrastructure is engineered for maximum security and regulatory integrity.</p>
@@ -1002,36 +1029,36 @@
         <table>
           <thead>
             <tr>
-              <th>Pillar</th>
-              <th>Partner Strategy</th>
-              <th>Role in Your Portfolio</th>
+              <th>Year</th>
+              <th>Expertise</th>
+              <th>Track Records</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><span class="td-badge">Technology</span></td>
-              <td>Direct &amp; Secondary</td>
-              <td>Verified access to SpaceX, xAI, and Neuralink.</td>
+              <td><span class="td-badge">2025</span></td>
+              <td>Quant</td>
+              <td>Advising <a href="https://rwa.xyz" target="_blank" rel="noopener noreferrer">Saudi Capital Market Authority</a> (CMA), Singapore MAS, HKMA, HSBC in AI-Driven Quantitative Strategies</td>
             </tr>
             <tr>
-              <td><span class="td-badge">Liquid Alpha</span></td>
-              <td>Elite Hedge Funds</td>
-              <td>Strategic allocations (Point72 / Millennium) for stability and non-correlated returns.</td>
+                <td><span class="td-badge">2025</span></td>
+                <td>Venture Capital</td>
+                <td>Gained early access to invest into Silicon Valley startups and Y Combinator AI portfolio companies.</td>
+              </tr>
+            <tr>
+              <td><span class="td-badge">2025</span></td>
+              <td>Research</td>
+              <td>Sponsor and co-host of the Money 20/20 Algo Challenge in partnership with 80+ global institutions (including Harvard, MIT, Oxford, Cambridge, CUHK, and HKU).</td>
             </tr>
             <tr>
-              <td><span class="td-badge">Execution</span></td>
-              <td>Licensed Firms</td>
-              <td>All securities trading cleared through fully licensed partners.</td>
+              <td><span class="td-badge">2023</span></td>
+              <td>Algo Funds</td>
+              <td>Launched the first securitized ISIN FX Algo Fund for global distribution to private banks, asset management firms and family offices.</td>
             </tr>
             <tr>
-              <td><span class="td-badge">Safety</span></td>
-              <td>Tier-1 Custodian</td>
-              <td>Assets held by major institutions (e.g., HSBC, Fidelity).</td>
-            </tr>
-            <tr>
-              <td><span class="td-badge">Verification</span></td>
-              <td>Audit &amp; Legal</td>
-              <td>Professional Auditors and Law Firms providing independent oversight.</td>
+              <td><span class="td-badge">2021</span></td>
+              <td>Pre-IPO</td>
+              <td>Ventured into global private Pre-IPO investments into SpaceX, Consensys, DJI, and more.</td>
             </tr>
           </tbody>
         </table>
@@ -1050,27 +1077,27 @@
   <section class="edge" id="edge">
     <div class="container">
       <p class="section-label dark">Why GlobalFront</p>
-      <h2 class="section-title dark">Our Competitive Edge</h2>
+      <h2 class="section-title dark">Institutional Structure</h2>
       <div class="edge-grid">
         <div class="edge-card">
           <div class="edge-num">01</div>
-          <h4>Curation, Not Collection</h4>
-          <p>We don't just offer "tech." We engineer a Modern Basket. By blending high-conviction hardware (SpaceX) with sophisticated, non-correlated liquid strategies (Point72), we solve the volatility problem that keeps most investors out of the private markets.</p>
+          <h4>Integrated e-KYC Onboarding</h4>
+          <p>Zero friction onboarding designed for the global citizens, ensuring seamless cross-border efficiency with security and compliance.</p>
         </div>
         <div class="edge-card">
           <div class="edge-num">02</div>
-          <h4>The Eight-Figure Bridge</h4>
-          <p>We have dismantled the "Institutional Minimum." Strategies that once required a $10,000,000+ commitment are now accessible through our platform, allowing for more precise and diversified portfolio construction.</p>
+          <h4>Multi-national AML Compliance</h4>
+          <p>All securities trading is cleared through licensed partners, with assets held by regulated custodians. We strictly implement compliant legal, anti-money Llaundering, and tax structures in coordination with professional auditors, law firms, and fund administrators. </p>
         </div>
         <div class="edge-card">
           <div class="edge-num">03</div>
-          <h4>Radical Transparency through Technology</h4>
-          <p>Our platform is a tech product as much as a financial one. From Digitalized e-KYC to real-time allocation tracking, we have replaced the "Black Box" of traditional fund management with a sleek, user-centric dashboard.</p>
+          <h4>Reporting Transparecny</h4>
+          <p>Our platform is a tech product as much as a financial one. From Digitalized fund perfromance to real-time allocation tracking, we have replaced the "Black Box" of traditional fund management with a sleek, user-centric dashboard.</p>
         </div>
         <div class="edge-card">
           <div class="edge-num">04</div>
-          <h4>Regulatory Integrity</h4>
-          <p>We don't cut corners. By partnering with licensed securities firms, Professional Auditors and Law Firms, we provide an environment where the high-risk potential of the Frontier is managed with the highest level of institutional safety.</p>
+          <h4>Investors By Invitation</h4>
+          <p>We operate within a strictly defined mandate, catering exclusively to sophisticated capital allocators. Our platform is not open to the general public.</p>
         </div>
       </div>
     </div>
@@ -1087,11 +1114,11 @@
   <section class="cta-section" id="cta">
     <div class="container">
       <p class="section-label" style="text-align:center;">The Frontier is Open</p>
-      <h2 class="section-title light" style="text-align:center;">The Gap Has Been Closed.</h2>
+      <h2 class="section-title light" style="text-align:center;">Join The New Generation of Investors</h2>
       <p class="section-body" style="text-align:center;">The gap between private markets and individual wealth has been closed. Join a new generation of investors tapping into opportunities that traditional banks and institutions cannot reach.</p>
       <div class="cta-actions">
-        <a href="#" class="btn-primary">Apply for Accreditation &nbsp;→</a>
-        <a href="#infra" class="btn-outline">View Infrastructure</a>
+        <a href="/dashboard" class="btn-primary">Enter App &nbsp;→</a>
+        <a href="#infra" class="btn-outline">Join as Our Partners</a>
       </div>
     </div>
   </section>
@@ -1102,11 +1129,11 @@
       <div class="footer-top">
         <a href="#" class="footer-logo">global<span>front</span></a>
         <div class="footer-disclaimer">
-          <strong>Professional Investors Only.</strong> This platform and its content are restricted to individuals or entities meeting the "Accredited Investor" or "Professional Investor" criteria as defined under the Securities and Futures Ordinance (SFO) of Hong Kong and respective global jurisdictions. The information on this website does not constitute an offer to sell or a solicitation to buy any security. Past performance is not indicative of future results. All investments involve risk, including the possible loss of principal.
+          <strong>Professional Investors Only.</strong> This platform and its content are restricted to individuals or entities meeting the "Accredited Investor" or "Professional Investor" criteria as defined under respective global jurisdictions. The information on this website does not constitute an offer to sell or a solicitation to buy any security. Past performance is not indicative of future results. All investments involve risk, including the possible loss of principal.
         </div>
       </div>
       <div class="footer-bottom">
-        <span class="footer-copy">© 2025 GlobalFront Exploration Fund. All rights reserved.</span>
+        <span class="footer-copy">© 2026 GlobalFront Exploration Fund. All rights reserved.</span>
         <div class="footer-links">
           <a href="#">Terms &amp; Conditions</a>
           <a href="#">Privacy Policy</a>
