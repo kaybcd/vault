@@ -13,22 +13,23 @@
     html { scroll-behavior: smooth; }
     body {
       font-family: 'Inter', sans-serif;
-      background: #ffffff;
-      color: #0d1117;
+      background: #0A0F22;
+      color: #F0F4F8;
       overflow-x: hidden;
     }
 
     /* ===== COLOR TOKENS ===== */
     :root {
-      --dark: #0d1117;
-      --dark-2: #131920;
-      --blue: #2f6bff;        /* vibrant professional blue */
-      --blue-dim: #1a4fcc;    /* darker blue for hover states */
-      --white: #ffffff;
-      --gray: #8a9ab0;
-      --light-bg: #f7f8fa;
-      --border: rgba(255,255,255,0.12);
-      --card-shadow: 0 4px 32px rgba(0,0,0,0.08);
+      /* Updated palette */
+      --light-bg: #F0F4F8;
+      --gray: #BAC7CC;
+      --blue: #448EF4;
+      --dark-2: #1D2233;
+      --dark: #0A0F22;
+      --blue-dim: #1D2233;
+      --white: #F0F4F8;
+      --border: rgba(186,199,204,0.35);
+      --card-shadow: 0 4px 32px rgba(10,15,34,0.7);
     }
 
     /* ===== NAVIGATION ===== */
@@ -46,7 +47,8 @@
     }
     .nav-logo {
       font-size: 22px;
-      font-weight: 800;
+      font-family: "Gotham Light", "Gotham", 'Inter', sans-serif;
+      font-weight: 300;
       color: var(--white);
       letter-spacing: -0.5px;
       text-decoration: none;
@@ -216,8 +218,9 @@
       width: fit-content;
     }
     .hero h1 {
+      font-family: "Gotham Light", "Gotham", 'Inter', sans-serif;
       font-size: clamp(48px, 7vw, 88px);
-      font-weight: 900;
+      font-weight: 300;
       color: var(--white);
       line-height: 1.0;
       letter-spacing: -2px;
@@ -344,8 +347,9 @@
     }
     .section-label.dark { color: rgba(0,0,0,0.4); }
     .section-title {
+      font-family: "Gotham Light", "Gotham", 'Inter', sans-serif;
       font-size: clamp(32px, 4vw, 52px);
-      font-weight: 800;
+      font-weight: 300;
       line-height: 1.1;
       letter-spacing: -1.5px;
     }
@@ -751,6 +755,7 @@
     }
     .footer-logo {
       font-size: 20px;
+      font-family: "Gotham Light", "Gotham", 'Inter', sans-serif;
       font-weight: 800;
       color: var(--dark);
       letter-spacing: -0.5px;
@@ -829,7 +834,7 @@
     <a href="#" class="nav-logo">global<span>front</span></a>
     <ul class="nav-links">
       <li><a href="#opportunity">Target Markets</a></li>
-      <li><a href="#basket">Thesis</a></li>
+      <li><a href="#basket">Our Thesis</a></li>
       <li><a href="#ecosystem">About Us</a></li>
       <li><a href="#infra">Milestones</a></li>
       <li><a href="/dashboard" class="nav-cta">Enter App</a></li>
@@ -847,7 +852,7 @@
     <div class="nav-dropdown-inner">
       <ul>
         <li><a href="#opportunity" role="menuitem">Target Markets</a></li>
-        <li><a href="#basket" role="menuitem">Thesis</a></li>
+        <li><a href="#basket" role="menuitem">Our Thesis</a></li>
         <li><a href="#ecosystem" role="menuitem">About Us</a></li>
         <li><a href="#infra" role="menuitem">Milestones</a></li>
         <li><a href="/dashboard" class="nav-cta" role="menuitem">Enter App</a></li>
@@ -885,11 +890,11 @@
   <!-- Wave transition: dark → white -->
   <div style="background:var(--dark); line-height:0;">
     <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="display:block;width:100%;">
-      <path d="M0,0 C480,80 960,80 1440,0 L1440,80 L0,80 Z" fill="#ffffff"/>
+      <path d="M0,0 C480,80 960,80 1440,0 L1440,80 L0,80 Z" fill="#F0F4F8"/>
     </svg>
   </div>
 
-  <!-- ===== OPPORTUNITY ===== -->
+  <!-- ===== TARGET MARKETS ===== -->
   <section class="opportunity" id="opportunity">
     <div class="container">
       <p class="section-label dark">Target Markets</p>
@@ -911,18 +916,18 @@
   </section>
 
   <!-- Wave transition: white → dark -->
-  <div style="background:#ffffff; line-height:0;">
+  <div style="background:var(--dark); line-height:0;">
     <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="display:block;width:100%;">
-      <path d="M0,80 C480,0 960,0 1440,80 L1440,0 L0,0 Z" fill="#0d1117"/>
+      <path d="M0,80 C480,0 960,0 1440,80 L1440,0 L0,0 Z" fill=":var(--dark)"/>
     </svg>
   </div>
 
-  <!-- ===== THE MODERN BASKET ===== -->
+  <!-- ===== OUR THESIS ===== -->
   <section class="basket" id="basket">
     <div class="container">
       <div class="basket-header">
         <div>
-          <p class="section-label">Thesis</p>
+          <p class="section-label">Our Thesis</p>
           <h2 class="section-title light">Positioned <br /> For the Future</h2>
         </div>
         <div>
@@ -952,11 +957,11 @@
   <!-- Wave transition: dark → white -->
   <div style="background:#0d1117; line-height:0;">
     <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="display:block;width:100%;">
-      <path d="M0,0 C480,80 960,80 1440,0 L1440,80 L0,80 Z" fill="#ffffff"/>
+      <path d="M0,0 C480,80 960,80 1440,0 L1440,80 L0,80 Z" fill="#F0F4F8"/>
     </svg>
   </div>
 
-  <!-- ===== ECOSYSTEM / PLATFORM ===== -->
+  <!-- ===== ABOUT US ===== -->
   <section class="ecosystem" id="ecosystem">
     <div class="container">
       <p class="section-label dark">About Us</p>
@@ -975,7 +980,7 @@
             <div class="eco-num">02</div>
             <div class="eco-content">
               <h4>Institutional Standards</h4>
-              <p>While legacy firms are bound by the slow-moving cycles of public markets, we operate at the speed of the Frontier. We provide the infrastructure for the new generation of wealth to participate in the companies that are re-writing the human story—from the colonization of space to the fusion of technology and AI.</p>
+              <p>While legacy firms are bound by the slow-moving cycles of public markets, we operate at the speed of the Frontier. We provide the infrastructure for the new generation of wealth to participate in the companies that are re-writing the human history.</p>
             </div>
           </div>
         </div>
@@ -1007,13 +1012,13 @@
   </section>
 
   <!-- Wave transition: white → dark -->
-  <div style="background:#ffffff; line-height:0;">
+  <div style="background:#0d1117; line-height:0;">
     <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="display:block;width:100%;">
       <path d="M0,80 C480,0 960,0 1440,80 L1440,0 L0,0 Z" fill="#0d1117"/>
     </svg>
   </div>
 
-  <!-- ===== INSTITUTIONAL RIGOR ===== -->
+  <!-- ===== MILESTONES ===== -->
   <section class="infra" id="infra">
     <div class="container">
       <div class="infra-header">
@@ -1069,11 +1074,11 @@
   <!-- Wave transition: dark → white -->
   <div style="background:#0d1117; line-height:0;">
     <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="display:block;width:100%;">
-      <path d="M0,0 C480,80 960,80 1440,0 L1440,80 L0,80 Z" fill="#ffffff"/>
+      <path d="M0,0 C480,80 960,80 1440,0 L1440,80 L0,80 Z" fill="#F0F4F8"/>
     </svg>
   </div>
 
-  <!-- ===== COMPETITIVE EDGE ===== -->
+  <!-- ===== INSTITUTIONAL STRUCTURE ===== -->
   <section class="edge" id="edge">
     <div class="container">
       <p class="section-label dark">Why GlobalFront</p>
@@ -1106,7 +1111,7 @@
   <!-- Wave transition: white → dark -->
   <div style="background:#ffffff; line-height:0;">
     <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="display:block;width:100%;">
-      <path d="M0,80 C480,0 960,0 1440,80 L1440,0 L0,0 Z" fill="#0d1117"/>
+      <path d="M0,80 C480,0 960,0 1440,80 L1440,0 L0,0 Z" fill="#ffffff"/>
     </svg>
   </div>
 
